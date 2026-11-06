@@ -84,6 +84,18 @@ class LauncherActivity : ComponentActivity() {
                             Intent(this@LauncherActivity, MainActivity::class.java)
                                 .putExtra("display", "form")
                         )
+                    },
+                    onOpenTapReward = {
+                        startActivity(
+                            Intent(this@LauncherActivity, MainActivity::class.java)
+                                .putExtra("display", "tap_reward")
+                        )
+                    },
+                    onOpenSpinWheel = {
+                        startActivity(
+                            Intent(this@LauncherActivity, MainActivity::class.java)
+                                .putExtra("display", "spin_wheel")
+                        )
                     }
                 )
             }
@@ -98,7 +110,9 @@ private fun LauncherScreen(
     onOpenOffers: () -> Unit,
     onOpenFixedBanner: () -> Unit,
     onOpenFloatingBanner: () -> Unit,
-    onOpenForm: () -> Unit
+    onOpenForm: () -> Unit,
+    onOpenTapReward: () -> Unit,
+    onOpenSpinWheel: () -> Unit
 ) {
     var showSetup by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -203,6 +217,30 @@ private fun LauncherScreen(
                     )
                 ) {
                     Text(text = "Form", style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold))
+                }
+
+                Button(
+                    onClick = onOpenTapReward,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(BUTTON_CORNER_RADIUS),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                ) {
+                    Text(text = "Tap to Reward", style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold))
+                }
+
+                Button(
+                    onClick = onOpenSpinWheel,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(BUTTON_CORNER_RADIUS),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                ) {
+                    Text(text = "Spin the Wheel", style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold))
                 }
             }
         }

@@ -39,7 +39,8 @@ fun HomeScreen(embeddedViewModel: EmbeddedViewModel = viewModel(), display: Stri
     // When showing the floating banner or form experience, we still render the
     // normal home content but overlay the banner/form on top so the user can
     // scroll underneath it.
-    val contentDisplay = if (display == "floating_banner" || display == "form") "none" else display
+    val overlayDisplays = setOf("floating_banner", "form", "tap_reward", "spin_wheel")
+    val contentDisplay = if (display in overlayDisplays) "none" else display
 
     Box(modifier = Modifier.fillMaxSize()) {
         HomeContent(embeddedViewModel = embeddedViewModel, display = contentDisplay)
@@ -50,6 +51,14 @@ fun HomeScreen(embeddedViewModel: EmbeddedViewModel = viewModel(), display: Stri
 
         if (display == "form") {
             FormBanner(modifier = Modifier.fillMaxSize())
+        }
+
+        if (display == "tap_reward") {
+            TapRewardBanner(modifier = Modifier.fillMaxSize())
+        }
+
+        if (display == "spin_wheel") {
+            SpinWheelBanner(modifier = Modifier.fillMaxSize())
         }
     }
 }
